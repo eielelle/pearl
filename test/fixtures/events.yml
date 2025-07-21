@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyString
+  location: MyString
+  limit: 1
+  expiry: 2025-07-21 22:43:07
+  price: 9.99
+  isPublished: false
+  isPublic: false
+  attendees: 1
+  attending: 1
+  not_attending: 1
+
+two:
+  title: MyString
+  description: MyString
+  location: MyString
+  limit: 1
+  expiry: 2025-07-21 22:43:07
+  price: 9.99
+  isPublished: false
+  isPublic: false
+  attendees: 1
+  attending: 1
+  not_attending: 1
