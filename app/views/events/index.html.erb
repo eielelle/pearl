@@ -10,60 +10,63 @@
     <%= link_to "New event", new_event_path, class: "btn btn-primary" %>
   </div>
 
-  <% if @events.any? %>
-    <% @events.each do |event| %>
-      <div class="card card-border bg-base-100 w-96">
-        <div class="card-body">
-          <div class="flex justify-between items-start">
-            <h2 class="card-title break-all"><%= event.title %>ddsnknsdsnsknkdsnkdsdkdsksdkdnk</h2>
-            <div class="dropdown">
-              <div tabindex="0" role="button" class="btn btn-sm btn-ghost">
-                <%= lucide_icon('ellipsis') %>
+  <div class="flex justify-start gap-4">
+    <% if @events.any? %>
+      <% @events.each do |event| %>
+        <div class="card card-border bg-base-100 flex-1 flex flex-col max-w-96">
+          <div class="card-body">
+            <div class="flex justify-between items-start">
+              <h2 class="card-title break-all"><%= event.title %>ddsnknsdsnsknkdsnkdsdkdsksdkdnk</h2>
+              <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-sm btn-ghost">
+                  <%= lucide_icon('ellipsis') %>
+                </div>
+                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                  <li>
+                    <%= link_to event do %>
+                      <%= lucide_icon('info', class: 'w-4 h-4 inline-block mr-1') %>
+                      More Information
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to edit_event_path(event) do %>
+                      <%= lucide_icon('pencil', class: 'w-4 h-4 inline-block mr-1') %>
+                      Edit Event
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= button_to event, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "flex items-center gap-2 text-red-500" do %>
+                      <%= lucide_icon('trash-2', class: 'w-4 h-4 inline-block mr-1') %>
+                      Destroy
+                    <% end %>
+                  </li>
+                </ul>
               </div>
-              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-                <li>
-                  <%= link_to event do %>
-                    <%= lucide_icon('info', class: 'w-4 h-4 inline-block mr-1') %>
-                    More Information
-                  <% end %>
-                </li>
-                <li>
-                  <%= link_to edit_event_path(event) do %>
-                    <%= lucide_icon('pencil', class: 'w-4 h-4 inline-block mr-1') %>
-                    Edit Event
-                  <% end %>
-                </li>
-                <li>
-                  <%= button_to event, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "flex items-center gap-2 text-red-500" do %>
-                    <%= lucide_icon('trash-2', class: 'w-4 h-4 inline-block mr-1') %>
-                    Destroy
-                  <% end %>
-                </li>
-              </ul>
+            </div>
+            
+            <div class="space-y-2">
+              <p><%= event.description %></p>
+              <p><%= lucide_icon('ticket', class: 'w-4 h-4 inline-block mr-1') %><%= "$#{event.price}" %></p>
+              <p><%= lucide_icon('map-pin', class: 'w-4 h-4 inline-block mr-1') %>Location</p>
+              <p><%= lucide_icon('user-minus', class: 'w-4 h-4 inline-block mr-1') %>Limit</p>
+              <p><%= lucide_icon('calendar-x', class: 'w-4 h-4 inline-block mr-1') %>Expiry</p>
+              <p><%= lucide_icon('check-circle', class: 'w-4 h-4 inline-block mr-1') %>Published</p>
+              <p><%= lucide_icon('eye', class: 'w-4 h-4 inline-block mr-1') %>Public</p>
+            </div>
+
+            <div class="card-actions justify-end mt-auto">
+              <%= link_to event, class: "btn btn-primary btn-sm" do %>
+                <%= lucide_icon('info', class: 'w-4 h-4 mr-1') %>
+                View Attendees
+              <% end %>
             </div>
           </div>
-          
-          <div class="space-y-2">
-            <p><%= event.description %></p>
-            <p><%= lucide_icon('ticket', class: 'w-4 h-4 inline-block mr-1') %><%= "$#{event.price}" %></p>
-            <p><%= lucide_icon('map-pin', class: 'w-4 h-4 inline-block mr-1') %>Location</p>
-            <p><%= lucide_icon('user-minus', class: 'w-4 h-4 inline-block mr-1') %>Limit</p>
-            <p><%= lucide_icon('calendar-x', class: 'w-4 h-4 inline-block mr-1') %>Expiry</p>
-            <p><%= lucide_icon('check-circle', class: 'w-4 h-4 inline-block mr-1') %>Published</p>
-            <p><%= lucide_icon('eye', class: 'w-4 h-4 inline-block mr-1') %>Public</p>
-          </div>
-
-          <div class="card-actions justify-end">
-            <%= link_to event, class: "btn btn-primary btn-sm" do %>
-              <%= lucide_icon('info', class: 'w-4 h-4 mr-1') %>
-              View Attendees
-            <% end %>
-          </div>
         </div>
-      </div>
+      <% end %>
+    <% else %>
+      <p class="text-center py-8">No events found.</p>
     <% end %>
-  <% else %>
-    <p class="text-center py-8">No events found.</p>
-  <% end %>
+  
+  </div>
 
 </div>
