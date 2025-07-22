@@ -1,72 +1,107 @@
-<%= form_with(model: event, class: "contents") do |form| %>
-  <% if event.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+<%= form_with model: event, class: "w-full max-w-lg p-4 bg-base-100 rounded-lg space-y-6" do |form| %>
+  <%# Fieldset per input as per daisyUI pattern %>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Title</legend>
+    <input type="text"
+           name="event[title]"
+           value="<%= event.title %>"
+           placeholder="E.g., Summer Meetup"
+           class="input w-full <%= 'input-error validator' if event.errors.include?(:title) %>">
+    <% if event.errors.include?(:title) %>
+      <div class="text-error mt-1"><%= "#{:title.capitalize} #{event.errors[:title].first}" %></div>
+    <% end %>
+  </fieldset>
 
-      <ul class="list-disc ml-6">
-        <% event.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Description</legend>
+    <input type="text"
+           name="event[description]"
+           value="<%= event.description %>"
+           placeholder="Short description..."
+           class="input w-full <%= 'input-error validator' if event.errors.include?(:description) %>">
+    <% if event.errors.include?(:description) %>
+      <div class="text-error mt-1"><%= "#{:description.capitalize} #{event.errors[:description].first}" %></div>
+    <% end %>
+  </fieldset>
 
-  <div class="my-5">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:title].none?, "border-red-400 focus:outline-red-600": event.errors[:title].any?}] %>
-  </div>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Location</legend>
+    <input type="text"
+           name="event[location]"
+           value="<%= event.location %>"
+           placeholder="City, Venue, etc."
+           class="input w-full <%= 'input-error validator' if event.errors.include?(:location) %>">
+    <% if event.errors.include?(:location) %>
+      <div class="text-error mt-1"><%= "#{:location.capitalize} #{event.errors[:location].first}" %></div>
+    <% end %>
+  </fieldset>
 
-  <div class="my-5">
-    <%= form.label :description %>
-    <%= form.text_field :description, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:description].none?, "border-red-400 focus:outline-red-600": event.errors[:description].any?}] %>
-  </div>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Limit</legend>
+    <input type="number"
+           name="event[limit]"
+           value="<%= event.limit %>"
+           placeholder="Max attendees"
+           min="1"
+           class="input input-md w-full <%= 'input-error validator' if event.errors.include?(:limit) %>">
+    <% if event.errors.include?(:limit) %>
+      <div class="text-error mt-1"><%= "#{:limit.capitalize} #{event.errors[:limit].first}" %></div>
+    <% end %>
+  </fieldset>
 
-  <div class="my-5">
-    <%= form.label :location %>
-    <%= form.text_field :location, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:location].none?, "border-red-400 focus:outline-red-600": event.errors[:location].any?}] %>
-  </div>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Expiry</legend>
+    <input type="datetime-local"
+           name="event[expiry]"
+           value="<%= event.expiry&.strftime('%Y-%m-%dT%H:%M') %>"
+           placeholder="YYYY-MM-DDThh:mm"
+           min="<%= Time.current.strftime("%Y-%m-%dT%H:%M") %>"
+           class="input input-md w-full <%= 'input-error validator' if event.errors.include?(:expiry) %>">
+    <% if event.errors.include?(:expiry) %>
+      <div class="text-error mt-1"><%= "#{:expiry.capitalize} #{event.errors[:expiry].first}" %></div>
+    <% end %>
+  </fieldset>
 
-  <div class="my-5">
-    <%= form.label :limit %>
-    <%= form.number_field :limit, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:limit].none?, "border-red-400 focus:outline-red-600": event.errors[:limit].any?}] %>
-  </div>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Price</legend>
+    <input type="text"
+           name="event[price]"
+           value="<%= event.price %>"
+           placeholder="0.00"
+           class="input w-full <%= 'input-error validator' if event.errors.include?(:price) %>">
+    <% if event.errors.include?(:price) %>
+      <div class="text-error mt-1"><%= "#{:price.capitalize} #{event.errors[:price].first}" %></div>
+    <% end %>
+  </fieldset>
 
-  <div class="my-5">
-    <%= form.label :expiry %>
-    <%= form.datetime_field :expiry, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:expiry].none?, "border-red-400 focus:outline-red-600": event.errors[:expiry].any?}] %>
-  </div>
+  <%# Checkbox fieldsets %>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Published?</legend>
+    <label class="flex items-center space-x-2">
+      <input type="checkbox"
+             name="event[isPublished]"
+             <%= 'checked' if event.isPublished %>
+             class="checkbox checkbox-primary <%= 'border-error' if event.errors.include?(:isPublished) %>">
+      <span>Yes</span>
+    </label>
+    <% if event.errors.include?(:isPublished) %>
+      <div class="text-error mt-1"><%= event.errors[:isPublished].first %></div>
+    <% end %>
+  </fieldset>
 
-  <div class="my-5">
-    <%= form.label :price %>
-    <%= form.text_field :price, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:price].none?, "border-red-400 focus:outline-red-600": event.errors[:price].any?}] %>
-  </div>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Public?</legend>
+    <label class="flex items-center space-x-2">
+      <input type="checkbox"
+             name="event[isPublic]"
+             <%= 'checked' if event.isPublic %>
+             class="checkbox checkbox-primary <%= 'border-error' if event.errors.include?(:isPublic) %>">
+      <span>Yes</span>
+    </label>
+    <% if event.errors.include?(:isPublic) %>
+      <div class="text-error mt-1"><%= event.errors[:isPublic].first %></div>
+    <% end %>
+  </fieldset>
 
-  <div class="my-5 flex items-center gap-2">
-    <%= form.label :isPublished %>
-    <%= form.checkbox :isPublished, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:isPublished].none?, "border-red-400 focus:outline-red-600": event.errors[:isPublished].any?}] %>
-  </div>
-
-  <div class="my-5 flex items-center gap-2">
-    <%= form.label :isPublic %>
-    <%= form.checkbox :isPublic, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": event.errors[:isPublic].none?, "border-red-400 focus:outline-red-600": event.errors[:isPublic].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :attendees %>
-    <%= form.number_field :attendees, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:attendees].none?, "border-red-400 focus:outline-red-600": event.errors[:attendees].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :attending %>
-    <%= form.number_field :attending, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:attending].none?, "border-red-400 focus:outline-red-600": event.errors[:attending].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :not_attending %>
-    <%= form.number_field :not_attending, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": event.errors[:not_attending].none?, "border-red-400 focus:outline-red-600": event.errors[:not_attending].any?}] %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
-  </div>
+  <button type="submit" class="btn btn-primary w-full sm:w-auto">Save Event</button>
 <% end %>

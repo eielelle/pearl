@@ -24,15 +24,35 @@
 
   <body>
     <main class="font-fredoka">
-      <% if alert %>
-        <p class="alert"><%= alert %></p>
-      <% end %>
+      <header class="navbar bg-base-100 shadow-sm">
+        <div class="flex-1">
+          <a class="btn btn-ghost text-xl">pearl.</a>
+        </div>
+        <div class="flex-none">
+          <div class="avatar">
+            <div class="w-8 rounded">
+              <img
+                src="https://img.daisyui.com/images/profile/demo/superperson@192.webp"
+                alt="Tailwind-CSS-Avatar-component"
+              />
+            </div>
+          </div>
+        </div>
+      </header>
 
-      <% if alert %>
-        <p class="notice"><%= notice %></p>
-      <% end %>
+      <div class="container mx-auto mt-14">
+        <% if alert %>
+          <p class="alert"><%= alert %></p>
+        <% end %>
 
-      <%= yield %>
+        <% if alert %>
+          <p class="notice"><%= notice %></p>
+        <% end %>
+        <section>
+          <%= yield %>
+        </section>
+      </div>
+
     </main>
   </body>
 </html>
