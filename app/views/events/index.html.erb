@@ -1,13 +1,23 @@
 <% content_for :title, "Events" %>
 
-<div class="w-full overflow-x-auto">
+<div class="w-full overflow-x-auto space-y-4">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center mb-4">
-    <h1 class="font-bold text-4xl">Events</h1>
+  <div class="flex justify-between items-center">
+    <div>
+      <h1 class="font-bold text-4xl">Your Events</h1>
+      <p>See all events here</p>    
+    </div>
     <%= link_to "New event", new_event_path, class: "btn btn-primary" %>
+  </div>
+
+  <div>
+    <label class="input">
+      <%= lucide_icon('search', class: 'w-4 h-4') %>
+      <input type="search" class="grow" placeholder="Search" />
+    </label>
   </div>
 
   <div class="flex justify-start gap-4">
