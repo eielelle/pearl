@@ -1,4 +1,4 @@
-<%= form_with model: event, class: "w-full max-w-lg p-4 bg-base-100 rounded-lg space-y-6" do |form| %>
+<%= form_with model: event, class: "grid grid-cols-2 gap-x-6 w-full p-4 bg-base-100 rounded-lg space-y-6" do |form| %>
   <%# Fieldset per input as per daisyUI pattern %>
   <fieldset class="fieldset">
     <legend class="fieldset-legend">Title</legend>
@@ -75,33 +75,33 @@
   </fieldset>
 
   <%# Checkbox fieldsets %>
-  <fieldset class="fieldset">
-    <legend class="fieldset-legend">Published?</legend>
-    <label class="flex items-center space-x-2">
-      <input type="checkbox"
-             name="event[isPublished]"
-             <%= 'checked' if event.isPublished %>
-             class="checkbox checkbox-primary <%= 'border-error' if event.errors.include?(:isPublished) %>">
-      <span>Yes</span>
-    </label>
-    <% if event.errors.include?(:isPublished) %>
-      <div class="text-error mt-1"><%= event.errors[:isPublished].first %></div>
-    <% end %>
-  </fieldset>
+  <div class="flex gap-4">
+    <fieldset class="fieldset">
+      <label class="flex items-center space-x-2">
+        <input type="checkbox"
+              name="event[isPublished]"
+              <%= 'checked' if event.isPublished %>
+              class="checkbox checkbox-primary <%= 'border-error' if event.errors.include?(:isPublished) %>">
+        <span>Publish Event</span>
+      </label>
+      <% if event.errors.include?(:isPublished) %>
+        <div class="text-error mt-1"><%= event.errors[:isPublished].first %></div>
+      <% end %>
+    </fieldset>
 
-  <fieldset class="fieldset">
-    <legend class="fieldset-legend">Public?</legend>
-    <label class="flex items-center space-x-2">
-      <input type="checkbox"
-             name="event[isPublic]"
-             <%= 'checked' if event.isPublic %>
-             class="checkbox checkbox-primary <%= 'border-error' if event.errors.include?(:isPublic) %>">
-      <span>Yes</span>
-    </label>
-    <% if event.errors.include?(:isPublic) %>
-      <div class="text-error mt-1"><%= event.errors[:isPublic].first %></div>
-    <% end %>
-  </fieldset>
+    <fieldset class="fieldset">
+      <label class="flex items-center space-x-2">
+        <input type="checkbox"
+              name="event[isPublic]"
+              <%= 'checked' if event.isPublic %>
+              class="checkbox checkbox-primary <%= 'border-error' if event.errors.include?(:isPublic) %>">
+        <span>Allow anyone to join</span>
+      </label>
+      <% if event.errors.include?(:isPublic) %>
+        <div class="text-error mt-1"><%= event.errors[:isPublic].first %></div>
+      <% end %>
+    </fieldset>
+  </div>
 
   <button type="submit" class="btn btn-primary w-full sm:w-auto">Save Event</button>
 <% end %>
