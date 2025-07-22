@@ -13,18 +13,6 @@
   </fieldset>
 
   <fieldset class="fieldset">
-    <legend class="fieldset-legend">Description</legend>
-    <input type="text"
-           name="event[description]"
-           value="<%= event.description %>"
-           placeholder="Short description..."
-           class="input w-full <%= 'input-error validator' if event.errors.include?(:description) %>">
-    <% if event.errors.include?(:description) %>
-      <div class="text-error mt-1"><%= "#{:description.capitalize} #{event.errors[:description].first}" %></div>
-    <% end %>
-  </fieldset>
-
-  <fieldset class="fieldset">
     <legend class="fieldset-legend">Location</legend>
     <input type="text"
            name="event[location]"
@@ -33,6 +21,18 @@
            class="input w-full <%= 'input-error validator' if event.errors.include?(:location) %>">
     <% if event.errors.include?(:location) %>
       <div class="text-error mt-1"><%= "#{:location.capitalize} #{event.errors[:location].first}" %></div>
+    <% end %>
+  </fieldset>
+
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Description</legend>
+    <textarea type="text"
+           name="event[description]"
+           value="<%= event.description %>"
+           placeholder="Short description..."
+           class="input h-24 w-full <%= 'input-error validator' if event.errors.include?(:description) %>"></textarea>
+    <% if event.errors.include?(:description) %>
+      <div class="text-error mt-1"><%= "#{:description.capitalize} #{event.errors[:description].first}" %></div>
     <% end %>
   </fieldset>
 
@@ -103,5 +103,7 @@
     </fieldset>
   </div>
 
-  <button type="submit" class="btn btn-primary w-full sm:w-auto">Save Event</button>
+  <div class="col-span-2">
+    <button type="submit" class="btn btn-primary rounded-full w-full sm:w-auto">Save Event</button>  
+  </div>
 <% end %>
