@@ -14,8 +14,8 @@
     <% @events.each do |event| %>
       <div class="card card-border bg-base-100 w-96">
         <div class="card-body">
-          <div class="card-actions justify-between items-start">
-            <h2 class="card-title"><%= event.title %></h2>
+          <div class="flex justify-between items-start">
+            <h2 class="card-title break-all"><%= event.title %>ddsnknsdsnsknkdsnkdsdkdsksdkdnk</h2>
             <div class="dropdown">
               <div tabindex="0" role="button" class="btn btn-sm btn-ghost">
                 <%= lucide_icon('ellipsis') %>
@@ -45,10 +45,10 @@
           
           <div class="space-y-2">
             <p><%= event.description %></p>
+            <p><%= lucide_icon('ticket', class: 'w-4 h-4 inline-block mr-1') %><%= "$#{event.price}" %></p>
             <p><%= lucide_icon('map-pin', class: 'w-4 h-4 inline-block mr-1') %>Location</p>
             <p><%= lucide_icon('user-minus', class: 'w-4 h-4 inline-block mr-1') %>Limit</p>
             <p><%= lucide_icon('calendar-x', class: 'w-4 h-4 inline-block mr-1') %>Expiry</p>
-            <p><%= lucide_icon('dollar-sign', class: 'w-4 h-4 inline-block mr-1') %>Price</p>
             <p><%= lucide_icon('check-circle', class: 'w-4 h-4 inline-block mr-1') %>Published</p>
             <p><%= lucide_icon('eye', class: 'w-4 h-4 inline-block mr-1') %>Public</p>
           </div>
@@ -66,42 +66,4 @@
     <p class="text-center py-8">No events found.</p>
   <% end %>
 
-  <table class="table table-zebra w-full">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Location</th>
-        <th>Limit</th>
-        <th>Expiry</th>
-        <th>Price</th>
-        <th>Published</th>
-        <th>Public</th>
-        <th class="text-center">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @events.any? %>
-        <% @events.each do |event| %>
-          <tr>
-            <td><%= event.title %></td>
-            <td><%= event.location %></td>
-            <td><%= event.limit %></td>
-            <td><%= event.expiry.strftime("%b %d, %Y %I:%M %p") %></td>
-            <td><%= number_to_currency(event.price) %></td>
-            <td><%= event.isPublished ? "✔️" : "✖️" %></td>
-            <td><%= event.isPublic ? "✔️" : "✖️" %></td>
-            <td class="flex flex-col sm:flex-row gap-2 justify-center">
-              <%= link_to "Show", event, class: "btn btn-sm btn-accent" %>
-              <%= link_to "Edit", edit_event_path(event), class: "btn btn-sm btn-info" %>
-              <%= button_to "Destroy", event, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-error" %>
-            </td>
-          </tr>
-        <% end %>
-      <% else %>
-        <tr>
-          <td colspan="8" class="text-center py-8">No events found.</td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
 </div>
