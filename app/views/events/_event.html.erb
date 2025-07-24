@@ -1,46 +1,76 @@
 <div id="<%= dom_id event %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Title:</strong>
-    <%= event.title %>
+  <div class="flex justify-between items-start">
+    <h1 class="font-bold text-4xl break-all"><%= event.title %></h1>
+
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-sm btn-ghost">
+        <%= lucide_icon('ellipsis') %>
+      </div>
+      <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+        <li>
+          <%= link_to edit_event_path(event) do %>
+            <%= lucide_icon('pencil', class: 'w-4 h-4 inline-block mr-1') %>
+            Edit Event
+          <% end %>
+        </li>
+        <li>
+          <%= button_to event, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "flex items-center gap-2 text-red-500" do %>
+            <%= lucide_icon('trash-2', class: 'w-4 h-4 inline-block mr-1') %>
+            Destroy
+          <% end %>
+        </li>
+      </ul>
+    </div>
   </div>
-  <div>
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= event.description %>
+
+  <div class="grid grid-cols-3 gap-4">
+    <div class="col-span-2">
+      
+    </div>
+
+    <div>
+      <div>
+        <strong class="block font-bold mb-1">Description:</strong>
+        <%= event.description %>
+      </div>
+      <div>
+        <strong class="block font-medium mb-1">Location:</strong>
+        <%= event.location %>
+      </div>
+      <div>
+        <strong class="block font-medium mb-1">Limit:</strong>
+        <%= event.limit %>
+      </div>
+      <div>
+        <strong class="block font-medium mb-1">Expiry:</strong>
+        <%= event.expiry %>
+      </div>
+      <div>
+        <strong class="block font-medium mb-1">Price:</strong>
+        <%= event.price %>
+      </div>
+      <div>
+        <strong class="block font-medium mb-1">Ispublished:</strong>
+        <%= event.isPublished? ? "Yes" : "No" %>
+      </div>
+      <div>
+        <strong class="block font-medium mb-1">Ispublic:</strong>
+        <%= event.isPublic? ? "Yes" : "No" %>
+      </div>
+      <div>
+        <strong class="block font-medium mb-1">Attendees:</strong>
+        <%= event.attendees %>
+      </div>
+      <div>
+        <strong class="block font-medium mb-1">Attending:</strong>
+        <%= event.attending %>
+      </div>
+      <div>
+        <strong class="block font-medium mb-1">Not attending:</strong>
+        <%= event.not_attending %>
+      </div>
+    </div>
+
   </div>
-  <div>
-    <strong class="block font-medium mb-1">Location:</strong>
-    <%= event.location %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Limit:</strong>
-    <%= event.limit %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Expiry:</strong>
-    <%= event.expiry %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Price:</strong>
-    <%= event.price %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Ispublished:</strong>
-    <%= event.isPublished? ? "Yes" : "No" %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Ispublic:</strong>
-    <%= event.isPublic? ? "Yes" : "No" %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Attendees:</strong>
-    <%= event.attendees %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Attending:</strong>
-    <%= event.attending %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Not attending:</strong>
-    <%= event.not_attending %>
-  </div>
+
 </div>
